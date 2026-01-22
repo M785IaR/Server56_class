@@ -1,9 +1,9 @@
 <?php
 require_once 'db.php'; 
 
-$sql = "SELECT c.*, m.name AS part_name 
+$sql = "SELECT c.*, m.name AS menu_name 
         FROM comments c 
-        LEFT JOIN meat_parts m ON c.meat_part_id = m.id 
+        LEFT JOIN menu m ON c.menu_id = m.id 
         ORDER BY c.created_at DESC";
 
 try {
@@ -27,8 +27,7 @@ try {
 <div class="container">
     <h1>焼肉 ささや</h1>
 
-    <hr style="margin-top: 30px;">
-    <h2>牛肉部位紹介（牛の部位を選択）</h2>
+    <h2>牛肉部位紹介（牛の部位を選択してください）</h2>
 
     <div class="image-map-container"> 
         <img src="../image/cuts of meat.jpg" usemap="#image-map" alt="牛の部位図">
@@ -61,22 +60,24 @@ try {
     </div>
     
     <div class="btn-group">
-        <a href="ranking.php" class="action-link ranking-btn">🏆 全メニュー人気ランキング・アンケート</a>
+        <a href="ranking.php" class="action-link">🏆 全メニュー人気ランキング・投票ページ</a>
     </div>
 
-    <hr style="margin-top: 30px;">
-    
-    <h2>全コメント一覧</h2>
+    <div class="section-header">
+        <h2>全コメント一覧</h2>
+        <a href="comment.php" class="small-link">コメント投稿する >></a>
+    </div>
+
     <ul class="comment-list">
         <?php if (count($comments) > 0): ?>
             <?php foreach ($comments as $row): ?>
                 <li>
                     <span class="part-label">
-                        <?php echo $row['part_name'] ? htmlspecialchars($row['part_name']) . "について" : "焼肉 ささやについて"; ?>
+                        <?php echo $row['menu_name'] ? htmlspecialchars($row['menu_name']) . "について" : "焼肉 ささやについて"; ?>
                     </span><br>
                     <strong><?php echo htmlspecialchars($row['username']); ?></strong>（<?php echo htmlspecialchars($row['age_group']); ?>）
-                    <small style="color: #777;">投稿日: <?php echo $row['created_at']; ?></small>
-                    <p style="margin-top: 5px;"><?php echo nl2br(htmlspecialchars($row['comment'])); ?></p>
+                    <small>投稿日: <?php echo $row['created_at']; ?></small>
+                    <p><?php echo nl2br(htmlspecialchars($row['comment'])); ?></p>
                 </li>
             <?php endforeach; ?>
         <?php else: ?>
@@ -85,11 +86,10 @@ try {
     </ul>
 
     <div class="comment-form-box">
-        <h3 style="margin-top:0;">店舗へのコメント</h3>
+        <h3>店舗へのコメント</h3>
         <form action="submit_comment.php" method="POST">
             <label for="username">名前:</label>
             <input type="text" id="username" name="username" required>
-
             <label for="age_group">年齢層:</label>
             <select id="age_group" name="age_group" required>
                 <option value="回答しない">回答しない</option>
@@ -102,10 +102,8 @@ try {
                 <option value="60代">60代</option>
                 <option value="70代以上">70代以上</option>
             </select>
-
             <label for="comment">コメント:</label>
             <textarea id="comment" name="comment" rows="4" required></textarea>
-
             <button type="submit">投稿する</button>
         </form>
     </div>
@@ -117,6 +115,5 @@ try {
         imageMapResize();
     });
 </script>
-
 </body>
 </html>

@@ -2,10 +2,10 @@
 require_once 'db.php';
 header('Content-Type: application/json');
 
-if (isset($_POST['part_ids']) && is_array($_POST['part_ids'])) {
+if (isset($_POST['menu_ids']) && is_array($_POST['menu_ids'])) {
     try {
-        $stmt = $pdo->prepare("INSERT INTO votes (meat_part_id) VALUES (?)");
-        foreach ($_POST['part_ids'] as $id) {
+        $stmt = $pdo->prepare("INSERT INTO votes (menu_id) VALUES (?)");
+        foreach ($_POST['menu_ids'] as $id) {
             $stmt->execute([$id]);
         }
         echo json_encode(['success' => true]);
