@@ -21,7 +21,6 @@ try {
     <title>焼肉 ささや</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* 牛の画像をスマホ幅にフィットさせる */
         .image-map-container img {
             max-width: 100%;
             height: auto;

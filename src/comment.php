@@ -10,13 +10,12 @@ $items = $pdo->query("SELECT id, name FROM menu ORDER BY id ASC")->fetchAll(PDO:
     <title>コメント投稿 - 焼肉 ささや</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* スマホ向けフォーム調整 */
         input[type="text"], select, textarea {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
             box-sizing: border-box;
-            font-size: 16px; /* iPhoneでズームされるのを防ぐサイズ */
+            font-size: 16px;
         }
         button {
             width: 100%;

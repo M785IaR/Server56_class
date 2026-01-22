@@ -28,7 +28,7 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
         .detail-box {
             padding: 20px;
             margin: 0 auto 20px;
-            width: 95%; /* スマホで左右に少し余白を作る */
+            width: 95%;
             box-sizing: border-box;
         }
         .detail-box h2 { font-size: 1.3rem; border-bottom: 1px solid #d4af37; padding-bottom: 5px; }
@@ -41,7 +41,7 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
         .comment-list li {
             padding: 15px;
             margin-bottom: 10px;
-            word-wrap: break-word; /* 長いコメントの改行対応 */
+            word-wrap: break-word;
         }
     </style>
 </head>
