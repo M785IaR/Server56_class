@@ -13,7 +13,6 @@ try {
     $comments = [];
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -21,13 +20,39 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>焼肉 ささや</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 牛の画像をスマホ幅にフィットさせる */
+        .image-map-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .action-link {
+            display: block;
+            text-align: center;
+            padding: 20px;
+            background: #8B0000;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .comment-form-box input, .comment-form-box select, .comment-form-box textarea {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <h1>焼肉 ささや</h1>
 
-    <h2>牛肉部位紹介（牛の部位を選択してください）</h2>
+    <h2>牛肉部位紹介（牛を選択してください）</h2>
 
     <div class="image-map-container"> 
         <img src="../image/cuts of meat.jpg" usemap="#image-map" alt="牛の部位図">
@@ -60,12 +85,12 @@ try {
     </div>
     
     <div class="btn-group">
-        <a href="ranking.php" class="action-link">🏆 全メニュー人気ランキング・投票ページ</a>
+        <a href="ranking.php" class="action-link">🏆 ランキング・投票ページへ</a>
     </div>
 
     <div class="section-header">
         <h2>全コメント一覧</h2>
-        <a href="comment.php" class="small-link">コメント投稿する >></a>
+        <a href="comment.php" class="small-link">投稿する >></a>
     </div>
 
     <ul class="comment-list">
@@ -73,11 +98,11 @@ try {
             <?php foreach ($comments as $row): ?>
                 <li>
                     <span class="part-label">
-                        <?php echo $row['menu_name'] ? htmlspecialchars($row['menu_name']) . "について" : "焼肉 ささやについて"; ?>
+                        <?php echo $row['menu_name'] ? htmlspecialchars($row['menu_name']) . "について" : "店舗全体について"; ?>
                     </span><br>
                     <strong><?php echo htmlspecialchars($row['username']); ?></strong>（<?php echo htmlspecialchars($row['age_group']); ?>）
-                    <small>投稿日: <?php echo $row['created_at']; ?></small>
-                    <p><?php echo nl2br(htmlspecialchars($row['comment'])); ?></p>
+                    <br><small>投稿日: <?php echo $row['created_at']; ?></small>
+                    <p style="margin-top:10px; border-top:1px solid #444; padding-top:5px;"><?php echo nl2br(htmlspecialchars($row['comment'])); ?></p>
                 </li>
             <?php endforeach; ?>
         <?php else: ?>
@@ -93,18 +118,15 @@ try {
             <label for="age_group">年齢層:</label>
             <select id="age_group" name="age_group" required>
                 <option value="回答しない">回答しない</option>
-                <option value="10代未満">10代未満</option>
                 <option value="10代">10代</option>
                 <option value="20代">20代</option>
                 <option value="30代">30代</option>
                 <option value="40代">40代</option>
-                <option value="50代">50代</option>
-                <option value="60代">60代</option>
-                <option value="70代以上">70代以上</option>
+                <option value="50代以上">50代以上</option>
             </select>
             <label for="comment">コメント:</label>
             <textarea id="comment" name="comment" rows="4" required></textarea>
-            <button type="submit">投稿する</button>
+            <button type="submit" style="width:100%; padding:15px;">投稿する</button>
         </form>
     </div>
 </div>

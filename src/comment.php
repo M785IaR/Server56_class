@@ -2,7 +2,6 @@
 require_once 'db.php';
 $items = $pdo->query("SELECT id, name FROM menu ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -10,6 +9,22 @@ $items = $pdo->query("SELECT id, name FROM menu ORDER BY id ASC")->fetchAll(PDO:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>コメント投稿 - 焼肉 ささや</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* スマホ向けフォーム調整 */
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 16px; /* iPhoneでズームされるのを防ぐサイズ */
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -37,14 +52,11 @@ $items = $pdo->query("SELECT id, name FROM menu ORDER BY id ASC")->fetchAll(PDO:
             <label for="age_group">年齢層:</label>
             <select id="age_group" name="age_group" required>
                 <option value="回答しない">回答しない</option>
-                <option value="10代未満">10代未満</option>
                 <option value="10代">10代</option>
                 <option value="20代">20代</option>
                 <option value="30代">30代</option>
                 <option value="40代">40代</option>
-                <option value="50代">50代</option>
-                <option value="60代">60代</option>
-                <option value="70代以上">70代以上</option>
+                <option value="50代以上">50代以上</option>
             </select>
             
             <label for="comment">コメント:</label>

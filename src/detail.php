@@ -17,7 +17,6 @@ $comments_stmt = $pdo->prepare("SELECT * FROM comments WHERE menu_id = ? ORDER B
 $comments_stmt->execute([$id]);
 $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -25,6 +24,26 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($item['name']); ?>の詳細 - 焼肉 ささや</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .detail-box {
+            padding: 20px;
+            margin: 0 auto 20px;
+            width: 95%; /* スマホで左右に少し余白を作る */
+            box-sizing: border-box;
+        }
+        .detail-box h2 { font-size: 1.3rem; border-bottom: 1px solid #d4af37; padding-bottom: 5px; }
+        .comment-form-box input, .comment-form-box textarea, .comment-form-box select {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .comment-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            word-wrap: break-word; /* 長いコメントの改行対応 */
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -36,13 +55,13 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
         <h1><?php echo htmlspecialchars($item['name']); ?></h1>
     </div>
 
-    <div class="detail-box" style="text-align: left; max-width: 700px; margin: 0 auto 40px;">
-        <h2 style="margin-top:0;">部位の特徴</h2>
-        <p style="font-size: 1.1rem; text-align:center;"><?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
-        <p style="text-align:center;"><strong>味わい・食感：</strong> <?php echo htmlspecialchars($item['taste']); ?></p>
+    <div class="detail-box">
+        <h2>部位の特徴</h2>
+        <p><?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
+        <p><strong>味わい・食感：</strong> <?php echo htmlspecialchars($item['taste']); ?></p>
         
         <h2>おすすめの食べ方</h2>
-        <p style="text-align:center;"><?php echo nl2br(htmlspecialchars($item['recommended_method'])); ?></p>
+        <p><?php echo nl2br(htmlspecialchars($item['recommended_method'])); ?></p>
     </div>
 
     <div class="comment-form-box">
@@ -62,7 +81,7 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
             </select>
             <label for="comment">コメント：</label>
             <textarea id="comment" name="comment" rows="4" required></textarea>
-            <button type="submit">コメントを送信</button>
+            <button type="submit" style="width:100%; padding:15px;">コメントを送信</button>
         </form>
     </div>
 
@@ -76,8 +95,8 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <li>
                     <span class="part-label"><?php echo htmlspecialchars($item['name']); ?> について</span><br>
                     <strong><?php echo htmlspecialchars($comment['username']); ?></strong>（<?php echo htmlspecialchars($comment['age_group']); ?>）
-                    <small style="color:#666;">投稿日: <?php echo $comment['created_at']; ?></small>
-                    <p style="margin-top:10px; border-top:1px solid #eee; padding-top:10px;">
+                    <br><small style="color:#666;">投稿日: <?php echo $comment['created_at']; ?></small>
+                    <p style="margin-top:10px; border-top:1px solid #444; padding-top:10px;">
                         <?php echo nl2br(htmlspecialchars($comment['comment'])); ?>
                     </p>
                 </li>
